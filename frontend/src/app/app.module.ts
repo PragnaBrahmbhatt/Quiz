@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 
 import { QuizComponent } from './components/quiz/quiz.component';
+import { FinishComponent } from './components/finish/finish.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuizComponent
+    QuizComponent,
+    FinishComponent
   ],
   imports: [
     BrowserModule,
