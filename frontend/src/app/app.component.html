@@ -1,0 +1,41 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Quiz</h1>
+    <p>Let's give an exam!</p>
+  </div>
+  <nav class="navbar navbar-default">    
+    <ul *ngFor="let value of allcategories; let i = index" class="nav navbar-nav">
+      <li style="cursor: pointer;"><a (click)="getQuestionData(1,value.id)">{{value.name}}</a></li>
+    </ul>
+  </nav>
+
+  <div *ngIf="apidata">
+    <div class="form-group">
+      <label>{{apidata.question}}</label>
+      <div>
+        <label for="opt1" class="radio-inline"><input id="opt1" type="radio" name="question" [value]="apidata.option1" (change)="checkandchange($event,apidata.option1)" [checked]="checkFlagRadio(apidata.id,apidata.category_id,apidata.option1)">{{apidata.option1}}</label> 
+        
+        <label for="opt2" class="radio-inline"><input id="opt2" type="radio" name="question"[value]="apidata.option2" (change)="checkandchange($event,apidata.option1)" [checked]="checkFlagRadio(apidata.id,apidata.category_id,apidata.option2)">{{apidata.option2}}</label>  
+        
+        <label for="opt3" class="radio-inline"><input id="opt3" type="radio" name="question"[value]="apidata.option3" (change)="checkandchange($event,apidata.option1)" [checked]="checkFlagRadio(apidata.id,apidata.category_id,apidata.option3)">{{apidata.option3}}</label>  
+        
+        <label for="opt4" class="radio-inline"><input id="opt4" type="radio" name="question"[value]="apidata.option4" (change)="checkandchange($event,apidata.option1)" [checked]="checkFlagRadio(apidata.id,apidata.category_id,apidata.option4)">{{apidata.option4}}</label>   
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-rpimary save-btn-prev" id="save-btn-prev" *ngIf="apidata.prev!=0" (click)="GetPrev()">Prev</button>
+  <button *ngIf="apidata.next!=0" class="btn btn-rpimary save-btn" id="save-btn" (click)="GetNext()">Next</button>
+
+  <div>
+    <ul *ngFor="let value of allquestiondata; let i = index" class="pagination  pagination-lg">
+      <li><button (click)="getQuestionData(value.id,value.category_id)" [disabled]="checkdisabled(value.id)">{{value.id}}</button></li>
+      <!-- [disabled]="lastquestion && value.id>lastquestion.id" -->
+    </ul>
+  </div>
+
+  <button class="btn-primay" *ngIf="lastquestion.question_id==15" (click)="finish()">Finish</button>
+</div>
